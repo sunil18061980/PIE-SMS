@@ -81,15 +81,15 @@ Public Class login
         Label4.Text = "No User Exist, Register New Admin "
         Label3.Text = "ADMIN REGISTRATION"
 
-
         Label1.Visible = False
         Label2.Visible = False
         Label3.Visible = False
         TextBox1.Visible = False
         TextBox2.Visible = False
         Button1.Visible = False
-
-
+        Panel1.Visible = False
+        Panel2.Visible = True
+        Label11.Visible = True
         Dim items() As String = {
             "Label3", "Label4", "Label5", "Label6", "Label7", "Label8",
             "Label9", "Label10", "NewCode", "UserId", "Password",
@@ -107,7 +107,9 @@ Public Class login
         GroupBox1.Text = "LOGIN"
         Label4.Text = "ENTER USER CREDENTIALS "
         Label3.Text = ""
-
+        Panel1.Visible = True
+        Panel2.Visible = False
+        Label11.Visible = False
 
         Label1.Visible = True
         Label2.Visible = True
@@ -164,7 +166,7 @@ Public Class login
     End Sub
 
     Public Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        'When calling User Name and Authority is passed, will collect the usercode from the table and proceeed
+        'When calling User Name and Authority is passed, will collect the usercode from the table and proceed
         Try
             Using conn As SQLiteConnection = DBConnection.GetConnection()
                 conn.Open()
@@ -263,7 +265,6 @@ Public Class login
         Me.Hide()
     End Sub
 
-    Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles GroupBox1.Enter
 
-    End Sub
+
 End Class

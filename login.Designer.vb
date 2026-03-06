@@ -45,16 +45,20 @@ Partial Class login
         Password = New TextBox()
         Authority = New ComboBox()
         GroupBox1 = New GroupBox()
+        Panel1 = New Panel()
+        Panel2 = New Panel()
         Label11 = New Label()
         Button6 = New Button()
         Button4 = New Button()
         Button5 = New Button()
         GroupBox1.SuspendLayout()
+        Panel1.SuspendLayout()
+        Panel2.SuspendLayout()
         SuspendLayout()
         ' 
         ' Button1
         ' 
-        Button1.Location = New Point(304, 232)
+        Button1.Location = New Point(16, 240)
         Button1.Margin = New Padding(4)
         Button1.Name = "Button1"
         Button1.Size = New Size(96, 49)
@@ -64,10 +68,10 @@ Partial Class login
         ' 
         ' Button2
         ' 
-        Button2.Location = New Point(131, 607)
+        Button2.Location = New Point(390, 384)
         Button2.Margin = New Padding(4)
         Button2.Name = "Button2"
-        Button2.Size = New Size(96, 60)
+        Button2.Size = New Size(128, 60)
         Button2.TabIndex = 1
         Button2.Text = "&QUIT"
         Button2.UseVisualStyleBackColor = True
@@ -78,7 +82,7 @@ Partial Class login
         Label1.BackColor = Color.DarkSeaGreen
         Label1.FlatStyle = FlatStyle.System
         Label1.ForeColor = Color.Blue
-        Label1.Location = New Point(62, 117)
+        Label1.Location = New Point(16, 17)
         Label1.Margin = New Padding(4, 0, 4, 0)
         Label1.Name = "Label1"
         Label1.Size = New Size(91, 28)
@@ -91,7 +95,7 @@ Partial Class login
         Label2.BackColor = Color.DarkSeaGreen
         Label2.FlatStyle = FlatStyle.System
         Label2.ForeColor = Color.Blue
-        Label2.Location = New Point(65, 201)
+        Label2.Location = New Point(16, 127)
         Label2.Margin = New Padding(4, 0, 4, 0)
         Label2.Name = "Label2"
         Label2.Size = New Size(118, 28)
@@ -101,7 +105,7 @@ Partial Class login
         ' TextBox1
         ' 
         TextBox1.ForeColor = SystemColors.MenuHighlight
-        TextBox1.Location = New Point(62, 149)
+        TextBox1.Location = New Point(16, 62)
         TextBox1.Margin = New Padding(4)
         TextBox1.Name = "TextBox1"
         TextBox1.Size = New Size(214, 34)
@@ -111,7 +115,7 @@ Partial Class login
         ' 
         TextBox2.BackColor = SystemColors.ButtonHighlight
         TextBox2.ForeColor = Color.Black
-        TextBox2.Location = New Point(65, 246)
+        TextBox2.Location = New Point(16, 172)
         TextBox2.Margin = New Padding(4)
         TextBox2.Name = "TextBox2"
         TextBox2.PasswordChar = "-"c
@@ -125,7 +129,7 @@ Partial Class login
         Label3.FlatStyle = FlatStyle.System
         Label3.Font = New Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label3.ForeColor = Color.Blue
-        Label3.Location = New Point(546, 31)
+        Label3.Location = New Point(257, 29)
         Label3.Margin = New Padding(4, 0, 4, 0)
         Label3.Name = "Label3"
         Label3.Size = New Size(242, 32)
@@ -139,7 +143,7 @@ Partial Class login
         Label4.FlatStyle = FlatStyle.System
         Label4.Font = New Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label4.ForeColor = Color.Blue
-        Label4.Location = New Point(19, 58)
+        Label4.Location = New Point(64, 26)
         Label4.Margin = New Padding(4, 0, 4, 0)
         Label4.Name = "Label4"
         Label4.Size = New Size(132, 37)
@@ -148,10 +152,10 @@ Partial Class login
         ' 
         ' Button3
         ' 
-        Button3.Location = New Point(661, 448)
+        Button3.Location = New Point(18, 324)
         Button3.Margin = New Padding(4)
         Button3.Name = "Button3"
-        Button3.Size = New Size(104, 62)
+        Button3.Size = New Size(121, 46)
         Button3.TabIndex = 8
         Button3.Text = "&SAVE"
         Button3.UseVisualStyleBackColor = True
@@ -162,7 +166,7 @@ Partial Class login
         Label5.BackColor = Color.DarkSeaGreen
         Label5.FlatStyle = FlatStyle.System
         Label5.ForeColor = Color.Blue
-        Label5.Location = New Point(516, 120)
+        Label5.Location = New Point(19, 7)
         Label5.Margin = New Padding(4, 0, 4, 0)
         Label5.Name = "Label5"
         Label5.Size = New Size(63, 28)
@@ -175,7 +179,7 @@ Partial Class login
         Label6.BackColor = Color.DarkSeaGreen
         Label6.FlatStyle = FlatStyle.System
         Label6.ForeColor = Color.Blue
-        Label6.Location = New Point(516, 168)
+        Label6.Location = New Point(19, 47)
         Label6.Margin = New Padding(4, 0, 4, 0)
         Label6.Name = "Label6"
         Label6.Size = New Size(85, 28)
@@ -188,7 +192,7 @@ Partial Class login
         Label7.BackColor = Color.DarkSeaGreen
         Label7.FlatStyle = FlatStyle.System
         Label7.ForeColor = Color.Blue
-        Label7.Location = New Point(516, 221)
+        Label7.Location = New Point(20, 93)
         Label7.Margin = New Padding(4, 0, 4, 0)
         Label7.Name = "Label7"
         Label7.Size = New Size(124, 28)
@@ -201,7 +205,7 @@ Partial Class login
         Label8.BackColor = Color.DarkSeaGreen
         Label8.FlatStyle = FlatStyle.System
         Label8.ForeColor = Color.Blue
-        Label8.Location = New Point(516, 275)
+        Label8.Location = New Point(19, 141)
         Label8.Margin = New Padding(4, 0, 4, 0)
         Label8.Name = "Label8"
         Label8.Size = New Size(120, 28)
@@ -214,7 +218,7 @@ Partial Class login
         Label9.BackColor = Color.DarkSeaGreen
         Label9.FlatStyle = FlatStyle.System
         Label9.ForeColor = Color.Blue
-        Label9.Location = New Point(516, 330)
+        Label9.Location = New Point(21, 200)
         Label9.Margin = New Padding(4, 0, 4, 0)
         Label9.Name = "Label9"
         Label9.Size = New Size(118, 28)
@@ -227,7 +231,7 @@ Partial Class login
         Label10.BackColor = Color.DarkSeaGreen
         Label10.FlatStyle = FlatStyle.System
         Label10.ForeColor = Color.Blue
-        Label10.Location = New Point(516, 386)
+        Label10.Location = New Point(18, 248)
         Label10.Margin = New Padding(4, 0, 4, 0)
         Label10.Name = "Label10"
         Label10.Size = New Size(121, 28)
@@ -236,7 +240,7 @@ Partial Class login
         ' 
         ' NewCode
         ' 
-        NewCode.Location = New Point(661, 117)
+        NewCode.Location = New Point(172, 4)
         NewCode.Margin = New Padding(4)
         NewCode.Name = "NewCode"
         NewCode.ReadOnly = True
@@ -246,7 +250,7 @@ Partial Class login
         ' UserId
         ' 
         UserId.CharacterCasing = CharacterCasing.Upper
-        UserId.Location = New Point(662, 164)
+        UserId.Location = New Point(172, 47)
         UserId.Margin = New Padding(4)
         UserId.MaxLength = 10
         UserId.Name = "UserId"
@@ -257,7 +261,7 @@ Partial Class login
         ' FirstName
         ' 
         FirstName.CharacterCasing = CharacterCasing.Upper
-        FirstName.Location = New Point(663, 221)
+        FirstName.Location = New Point(172, 93)
         FirstName.Margin = New Padding(4)
         FirstName.Name = "FirstName"
         FirstName.PlaceholderText = "FirstName"
@@ -267,7 +271,7 @@ Partial Class login
         ' LastName
         ' 
         LastName.CharacterCasing = CharacterCasing.Upper
-        LastName.Location = New Point(662, 269)
+        LastName.Location = New Point(172, 141)
         LastName.Margin = New Padding(4)
         LastName.Name = "LastName"
         LastName.PlaceholderText = "LastName"
@@ -276,7 +280,7 @@ Partial Class login
         ' 
         ' Password
         ' 
-        Password.Location = New Point(661, 326)
+        Password.Location = New Point(171, 200)
         Password.Margin = New Padding(4)
         Password.MaxLength = 10
         Password.Name = "Password"
@@ -290,7 +294,7 @@ Partial Class login
         ' 
         Authority.FormattingEnabled = True
         Authority.Items.AddRange(New Object() {"5", "4", "3", "2"})
-        Authority.Location = New Point(663, 380)
+        Authority.Location = New Point(172, 248)
         Authority.Margin = New Padding(4)
         Authority.Name = "Authority"
         Authority.Size = New Size(154, 36)
@@ -300,35 +304,48 @@ Partial Class login
         ' 
         GroupBox1.BackColor = Color.Transparent
         GroupBox1.BackgroundImageLayout = ImageLayout.Stretch
-        GroupBox1.Controls.Add(Label11)
-        GroupBox1.Controls.Add(Label2)
-        GroupBox1.Controls.Add(TextBox2)
-        GroupBox1.Controls.Add(Button1)
-        GroupBox1.Controls.Add(Button3)
-        GroupBox1.Controls.Add(Authority)
-        GroupBox1.Controls.Add(Label4)
-        GroupBox1.Controls.Add(Label10)
-        GroupBox1.Controls.Add(Label1)
-        GroupBox1.Controls.Add(TextBox1)
-        GroupBox1.Controls.Add(Password)
-        GroupBox1.Controls.Add(Label3)
-        GroupBox1.Controls.Add(LastName)
-        GroupBox1.Controls.Add(Label9)
-        GroupBox1.Controls.Add(Label5)
-        GroupBox1.Controls.Add(FirstName)
-        GroupBox1.Controls.Add(NewCode)
-        GroupBox1.Controls.Add(Label8)
-        GroupBox1.Controls.Add(UserId)
-        GroupBox1.Controls.Add(Label7)
-        GroupBox1.Controls.Add(Label6)
-        GroupBox1.Location = New Point(44, 17)
+        GroupBox1.Controls.Add(Panel1)
+        GroupBox1.Location = New Point(64, 82)
         GroupBox1.Margin = New Padding(4)
         GroupBox1.Name = "GroupBox1"
         GroupBox1.Padding = New Padding(4)
-        GroupBox1.Size = New Size(960, 568)
+        GroupBox1.Size = New Size(295, 397)
         GroupBox1.TabIndex = 21
         GroupBox1.TabStop = False
         GroupBox1.Text = "New User"
+        ' 
+        ' Panel1
+        ' 
+        Panel1.Controls.Add(Label1)
+        Panel1.Controls.Add(Button1)
+        Panel1.Controls.Add(TextBox2)
+        Panel1.Controls.Add(Label2)
+        Panel1.Controls.Add(TextBox1)
+        Panel1.Location = New Point(7, 81)
+        Panel1.Name = "Panel1"
+        Panel1.Size = New Size(250, 319)
+        Panel1.TabIndex = 24
+        ' 
+        ' Panel2
+        ' 
+        Panel2.BorderStyle = BorderStyle.FixedSingle
+        Panel2.Controls.Add(NewCode)
+        Panel2.Controls.Add(Button3)
+        Panel2.Controls.Add(Label5)
+        Panel2.Controls.Add(Authority)
+        Panel2.Controls.Add(Label10)
+        Panel2.Controls.Add(Label6)
+        Panel2.Controls.Add(UserId)
+        Panel2.Controls.Add(FirstName)
+        Panel2.Controls.Add(Password)
+        Panel2.Controls.Add(Label9)
+        Panel2.Controls.Add(Label7)
+        Panel2.Controls.Add(LastName)
+        Panel2.Controls.Add(Label8)
+        Panel2.Location = New Point(4, 82)
+        Panel2.Name = "Panel2"
+        Panel2.Size = New Size(381, 397)
+        Panel2.TabIndex = 24
         ' 
         ' Label11
         ' 
@@ -336,17 +353,18 @@ Partial Class login
         Label11.BackColor = Color.White
         Label11.Font = New Font("Bell MT", 13.8F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label11.ForeColor = Color.Sienna
-        Label11.Location = New Point(13, 302)
+        Label11.Location = New Point(12, 485)
         Label11.Name = "Label11"
         Label11.Size = New Size(437, 252)
         Label11.TabIndex = 21
         Label11.Text = resources.GetString("Label11.Text")
+        Label11.Visible = False
         ' 
         ' Button6
         ' 
-        Button6.Location = New Point(829, 607)
+        Button6.Location = New Point(389, 196)
         Button6.Name = "Button6"
-        Button6.Size = New Size(105, 62)
+        Button6.Size = New Size(126, 62)
         Button6.TabIndex = 23
         Button6.Text = "&CANCEL"
         Button6.UseVisualStyleBackColor = True
@@ -354,37 +372,40 @@ Partial Class login
         ' Button4
         ' 
         Button4.Cursor = Cursors.No
-        Button4.Enabled = False
-        Button4.Location = New Point(606, 607)
+        Button4.Location = New Point(389, 115)
         Button4.Name = "Button4"
-        Button4.Size = New Size(191, 62)
+        Button4.Size = New Size(128, 64)
         Button4.TabIndex = 22
         Button4.Text = "SINGUP"
         Button4.UseVisualStyleBackColor = True
         ' 
         ' Button5
         ' 
-        Button5.Location = New Point(297, 605)
+        Button5.Location = New Point(390, 280)
         Button5.Name = "Button5"
-        Button5.Size = New Size(260, 62)
+        Button5.Size = New Size(128, 81)
         Button5.TabIndex = 22
         Button5.Text = "FORGET PASSWORD"
         Button5.UseVisualStyleBackColor = True
         ' 
         ' login
         ' 
-        AutoScaleDimensions = New SizeF(11F, 28F)
+        AutoScaleDimensions = New SizeF(11.0F, 28.0F)
         AutoScaleMode = AutoScaleMode.Font
         AutoSize = True
         BackColor = Color.DarkSeaGreen
         CancelButton = Button6
-        ClientSize = New Size(1073, 680)
+        ClientSize = New Size(605, 777)
+        Controls.Add(Panel2)
+        Controls.Add(Label4)
+        Controls.Add(Label11)
+        Controls.Add(Label3)
         Controls.Add(Button6)
         Controls.Add(Button4)
         Controls.Add(Button5)
         Controls.Add(GroupBox1)
         Controls.Add(Button2)
-        Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Font = New Font("Segoe UI Semibold", 12.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         FormBorderStyle = FormBorderStyle.Fixed3D
         Margin = New Padding(4)
         MaximizeBox = False
@@ -393,8 +414,12 @@ Partial Class login
         StartPosition = FormStartPosition.CenterScreen
         Text = "USER AUTHENTICATION"
         GroupBox1.ResumeLayout(False)
-        GroupBox1.PerformLayout()
+        Panel1.ResumeLayout(False)
+        Panel1.PerformLayout()
+        Panel2.ResumeLayout(False)
+        Panel2.PerformLayout()
         ResumeLayout(False)
+        PerformLayout()
     End Sub
 
     Friend WithEvents Button1 As Button
@@ -423,4 +448,6 @@ Partial Class login
     Friend WithEvents Button5 As Button
     Friend WithEvents Label11 As Label
     Friend WithEvents Button6 As Button
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents Panel2 As Panel
 End Class
