@@ -1,7 +1,9 @@
 ﻿Imports System.Data.Common
 Imports System.Data.SQLite
 Imports System.Data.SqlTypes
+Imports System.Security.Cryptography
 Imports System.Security.Cryptography.X509Certificates
+Imports SHDocVw
 
 Public Class AddIncomeSource
     Public EditRecord As Boolean = False
@@ -17,6 +19,7 @@ Public Class AddIncomeSource
             Exit Sub
         End If
         SourceListShow()
+        listMappedUsers()
     End Sub
 
     ' Function to show Source Name in the list box
@@ -31,13 +34,13 @@ Public Class AddIncomeSource
 
                 If String.IsNullOrWhiteSpace(SelectSource) Then
                     ' If textbox is empty → load all
-                    sql = "SELECT INC_S_NAME 
+                    sql = "SELECT INC_S_NAME, INC_S_CODE 
                FROM INCOME_SOURCE 
                WHERE INC_S_STATUS = 'True'
                ORDER BY INC_S_NAME"
                 Else
                     ' If textbox has text → load matching names
-                    sql = "SELECT INC_S_NAME 
+                    sql = "SELECT INC_S_NAME, INC_S_CODE 
                FROM INCOME_SOURCE 
                WHERE INC_S_STATUS = 'True'
                  AND INC_S_NAME LIKE @name
@@ -71,7 +74,73 @@ Public Class AddIncomeSource
         End Try
 
     End Sub
+    Private Sub listMappedUsers()
+        ListBox2.Items.Clear()
+        Dim scode, user_code As Integer
+        Dim sname, user_id, rowText As String
+        Dim listCount As Integer = 0
+        Dim mappeduser As Integer
 
+        Try
+            Using conn As SQLiteConnection = DBConnection.GetConnection()
+                conn.Open()
+
+                Dim sql As String = "SELECT * FROM INCOME_SOURCE"
+                Dim cmd As New SQLiteCommand(sql, conn)
+
+                Using reader As SQLiteDataReader = cmd.ExecuteReader()
+
+                    While reader.Read()
+
+                        scode = Convert.ToInt32(reader("INC_S_CODE"))
+                        sname = Convert.ToString(reader("INC_S_NAME"))
+                        mappeduser = 0
+
+                        Dim sql1 As String = "SELECT USERCODE FROM USER_INCOME_SOURCE WHERE INC_S_CODE=@uscode AND STATUS=@st"
+                        Dim cmd1 As New SQLiteCommand(sql1, conn)
+                        cmd1.Parameters.AddWithValue("@uscode", scode)
+                        cmd1.Parameters.AddWithValue("@st", True)
+
+                        Using reader1 As SQLiteDataReader = cmd1.ExecuteReader()
+
+                            While reader1.Read()
+
+                                user_code = Convert.ToInt32(reader1("USERCODE"))
+
+                                Dim Sql2 As String = "SELECT USERID FROM USERDATA WHERE USERCODE=@usCode"
+                                Dim cmd2 As New SQLiteCommand(Sql2, conn)
+                                cmd2.Parameters.AddWithValue("@usCode", user_code)
+
+                                user_id = Convert.ToString(cmd2.ExecuteScalar())
+
+                                mappeduser += 1
+                                listCount += 1
+
+                                rowText = listCount & ".  " & sname &
+                                      "  Mapped User - " & mappeduser &
+                                      " : " & user_id
+
+                                ListBox2.Items.Add(rowText)
+
+                            End While
+
+                        End Using
+
+                    End While
+
+                End Using
+
+            End Using
+            If listCount = 0 Then
+                ListBox2.Items.Add("EITHER NO ACTIVE INCOME SOURCE OR IS NOT MAPPED")
+            End If
+
+
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
+
+    End Sub
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         Me.Close()
         login.Show()
@@ -270,12 +339,15 @@ Public Class AddIncomeSource
     End Sub
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
-        Panel2.Visible = False
-        Panel1.Visible = True
+        Panel1.Visible = False
+        Panel2.Visible = True
+        Panel4.Visible = False
+        Panel5.Visible = False
+        Panel2.BringToFront()
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
-        Panel2.Visible = True
+
         Try
             Using conn As SQLiteConnection = DBConnection.GetConnection()
                 conn.Open()
@@ -303,8 +375,13 @@ Public Class AddIncomeSource
             MessageBox.Show("Error loading data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
         End Try
-        Panel2.Visible = True
         Panel1.Visible = False
+        Panel2.Visible = True
+        Panel4.Visible = False
+        ListBox2.Visible = False
+        Panel5.Visible = False
+        Panel2.BringToFront()
+
     End Sub
 
     Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
@@ -341,6 +418,7 @@ Public Class AddIncomeSource
                     End Using
                 End Using
             End Using
+            listMappedUsers()
         Catch ex As Exception
             MessageBox.Show("Error loading source details: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -355,6 +433,9 @@ Public Class AddIncomeSource
         Panel2.Visible = False
         Panel4.Visible = False
         Panel3.Visible = True
+        Panel5.Visible = False
+        ListBox2.Visible = True
+        listMappedUsers()
 
         Dim textBoxes As String() = {
              "TextBox1", "TextBox2", "TextBox3", "TextBox4", "TextBox5",
@@ -411,9 +492,7 @@ Public Class AddIncomeSource
         End If
     End Sub
 
-    Private Sub Label15_Click(sender As Object, e As EventArgs) Handles Label15.Click
 
-    End Sub
     Private Sub Button9_Click(sender As Object, e As EventArgs) Handles Button9.Click
 
         If ComboBox1.Text = "" Or ComboBox2.Text = "" Then
@@ -508,6 +587,13 @@ Public Class AddIncomeSource
 
     Private Sub Button14_Click(sender As Object, e As EventArgs) Handles Button14.Click
         Panel1.Visible = True
+        Panel2.Visible = False
+        Panel4.Visible = False
+        Panel5.Visible = False
+        ListBox2.Visible = False
+        Panel1.BringToFront()
+
+
     End Sub
 
     Private Sub Button13_Click(sender As Object, e As EventArgs) Handles Button13.Click
@@ -536,13 +622,18 @@ Public Class AddIncomeSource
 
             End Using
 
-            Button10.Enabled = True
+            Panel1.Visible = False
+            Panel2.Visible = False
             Panel4.Visible = True
+            Panel5.Visible = False
+            ListBox2.Visible = False
+            Panel4.BringToFront()
+
+            Button10.Enabled = True
             Label30.Visible = False
             DateTimePicker3.Visible = False
             USERNAME.Enabled = True
             SOURCENAME.Enabled = True
-
 
             Button11.Visible = False
             Button12.Visible = False
@@ -559,7 +650,6 @@ Public Class AddIncomeSource
             TextBox15.Visible = False
             Button12.Visible = False
 
-
         Catch ex As Exception
             MessageBox.Show("Error loading data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
@@ -572,45 +662,45 @@ Public Class AddIncomeSource
         End If
 
         Try
-            Using conn As SQLiteConnection = DBConnection.GetConnection()
+            Using conn = DBConnection.GetConnection
                 conn.Open()
-                Dim sql As String = "SELECT USERCODE FROM USERDATA WHERE USERID = @user"
-                Dim sql2 As String = "SELECT INC_S_CODE FROM INCOME_SOURCE WHERE INC_S_NAME = @source"
-                Dim userCode As String = ""
-                Dim sourceCode As String = ""
-                Dim accessCount As Integer = 0
+                Dim sql = "SELECT USERCODE FROM USERDATA WHERE USERID = @user"
+                Dim sql2 = "SELECT INC_S_CODE FROM INCOME_SOURCE WHERE INC_S_NAME = @source"
+                Dim userCode = ""
+                Dim sourceCode = ""
+                Dim accessCount = 0
                 Using cmd As New SQLiteCommand(sql, conn)
                     cmd.Parameters.AddWithValue("@user", USERNAME.Text)
-                    userCode = Convert.ToString(cmd.ExecuteScalar())
+                    userCode = Convert.ToString(cmd.ExecuteScalar)
                 End Using
                 Using cmd As New SQLiteCommand(sql2, conn)
                     cmd.Parameters.AddWithValue("@source", SOURCENAME.Text)
-                    sourceCode = Convert.ToString(cmd.ExecuteScalar())
+                    sourceCode = Convert.ToString(cmd.ExecuteScalar)
                 End Using
-                Dim sql3 As String = "SELECT COUNT(*) FROM USER_INCOME_SOURCE WHERE USERCODE = @user AND INC_S_CODE = @source"
+                Dim sql3 = "SELECT COUNT(*) FROM USER_INCOME_SOURCE WHERE USERCODE = @user AND INC_S_CODE = @source"
                 Using cmd As New SQLiteCommand(sql3, conn)
                     cmd.Parameters.AddWithValue("@user", userCode)
                     cmd.Parameters.AddWithValue("@source", sourceCode)
-                    accessCount = Convert.ToInt32(cmd.ExecuteScalar())
+                    accessCount = Convert.ToInt32(cmd.ExecuteScalar)
                 End Using
                 If accessCount = 0 Then
                     MessageBox.Show("This user does not have access to the selected source.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     Return
                 End If
 
-                Dim sql4 As String = "SELECT * FROM USER_INCOME_SOURCE WHERE USERCODE = @user AND INC_S_CODE = @source"
+                Dim sql4 = "SELECT * FROM USER_INCOME_SOURCE WHERE USERCODE = @user AND INC_S_CODE = @source"
                 Using cmd As New SQLiteCommand(sql4, conn)
                     cmd.Parameters.AddWithValue("@user", userCode)
                     cmd.Parameters.AddWithValue("@source", sourceCode)
-                    Using reader As SQLiteDataReader = cmd.ExecuteReader()
-                        If reader.Read() Then
+                    Using reader = cmd.ExecuteReader
+                        If reader.Read Then
 
                             DateTimePicker1.Value = Convert.ToDateTime(reader("START_DATE"))
                             DateTimePicker2.Value = Convert.ToDateTime(reader("NEXT_PAYMENT_DATE"))
                             DateTimePicker3.Value = Convert.ToDateTime(reader("NEXT_PAYMENT_DATE"))
-                            TextBox13.Text = reader("FIXED_AMOUNT").ToString()
-                            TextBox15.Text = reader("PAYMENT_SCHEDULE").ToString()
-                            If reader("STATUS").ToString() = "True" Then
+                            TextBox13.Text = reader("FIXED_AMOUNT").ToString
+                            TextBox15.Text = reader("PAYMENT_SCHEDULE").ToString
+                            If reader("STATUS").ToString = "True" Then
                                 TextBox14.Text = "True"
 
                             Else
@@ -704,5 +794,138 @@ Public Class AddIncomeSource
 
     Private Sub Button15_Click(sender As Object, e As EventArgs) Handles Button15.Click
         Panel4.Visible = False
+    End Sub
+
+    Private Sub Button16_Click(sender As Object, e As EventArgs) Handles Button16.Click
+
+        Panel1.Visible = False
+        Panel2.Visible = False
+        Panel4.Visible = False
+        Panel5.Visible = True
+        ListBox2.Visible = False
+        Panel5.BringToFront()
+
+        Try
+            Using conn = DBConnection.GetConnection
+                conn.Open()
+                Dim sql = "SELECT USERID FROM USERDATA"
+                Dim sql2 = "SELECT INC_S_NAME FROM INCOME_SOURCE"
+                Using cmd As New SQLiteCommand(sql, conn)
+                    Using reader = cmd.ExecuteReader
+                        ComboBox4.Items.Clear()
+
+                        While reader.Read
+                            ComboBox4.Items.Add(reader("USERID").ToString)
+                        End While
+                    End Using
+                End Using
+                Using cmd1 As New SQLiteCommand(sql2, conn)
+                    Using reader1 = cmd1.ExecuteReader
+                        ComboBox3.Items.Clear()
+
+                        While reader1.Read
+                            ComboBox3.Items.Add(reader1("INC_S_NAME").ToString)
+                        End While
+                    End Using
+                End Using
+
+            End Using
+
+            listMappedUsers()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        End Try
+
+    End Sub
+
+    Private Sub Button17_Click(sender As Object, e As EventArgs) Handles Button17.Click
+        If ComboBox3.Text = "" OrElse ComboBox4.Text = "" Then
+            MessageBox.Show("User Name or Source Name can't be empty", "Selection Missing", MessageBoxButtons.OK, MessageBoxIcon.Hand)
+            Return
+        End If
+        Try
+            Using conn As SQLiteConnection = DBConnection.GetConnection()
+                conn.Open()
+
+                Dim sql = "SELECT USERCODE FROM USERDATA WHERE USERID = @user"
+                Dim sql2 = "SELECT INC_S_CODE FROM INCOME_SOURCE WHERE INC_S_NAME = @source"
+                Dim userCode = ""
+                Dim sourceCode = ""
+                Dim accessCount = 0
+                Using cmd As New SQLiteCommand(sql, conn)
+                    cmd.Parameters.AddWithValue("@user", ComboBox4.Text)
+                    userCode = Convert.ToString(cmd.ExecuteScalar)
+                End Using
+                Using cmd As New SQLiteCommand(sql2, conn)
+                    cmd.Parameters.AddWithValue("@source", ComboBox3.Text)
+                    sourceCode = Convert.ToString(cmd.ExecuteScalar)
+                End Using
+                Dim sql3 = "SELECT COUNT(*) FROM USER_INCOME_SOURCE WHERE USERCODE = @user AND INC_S_CODE = @source"
+                Using cmd As New SQLiteCommand(sql3, conn)
+                    cmd.Parameters.AddWithValue("@user", userCode)
+                    cmd.Parameters.AddWithValue("@source", sourceCode)
+                    accessCount = Convert.ToInt32(cmd.ExecuteScalar)
+                End Using
+                If accessCount = 0 Then
+                    MessageBox.Show("This user does not have access to the selected source.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                    Return
+                End If
+
+                Dim sql4 = "SELECT * FROM USER_INCOME_SOURCE WHERE USERCODE = @user AND INC_S_CODE = @source"
+                Using cmd As New SQLiteCommand(sql4, conn)
+                    cmd.Parameters.AddWithValue("@user", userCode)
+                    cmd.Parameters.AddWithValue("@source", sourceCode)
+                    Using reader = cmd.ExecuteReader
+                        If reader.Read Then
+
+                            ' DateTimePicker1.Value = Convert.ToDateTime(reader("START_DATE"))
+                            'DateTimePicker2.Value = Convert.ToDateTime(reader("NEXT_PAYMENT_DATE"))
+                            'DateTimePicker3.Value = Convert.ToDateTime(reader("NEXT_PAYMENT_DATE"))
+                            'TextBox13.Text = reader("FIXED_AMOUNT").ToString
+                            'TextBox15.Text = reader("PAYMENT_SCHEDULE").ToString
+                            If reader("STATUS").ToString = "True" Then
+                                MessageBox.Show("This user and source are already mapped and active", "active", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                                Return
+                            Else
+                                Dim result As DialogResult
+                                result = MessageBox.Show("Do you want to Re=-Active", "Its De-activated", MessageBoxButtons.YesNo, MessageBoxIcon.Hand)
+
+                                If result = DialogResult.Yes Then
+
+
+                                    ' Action when user clicks No
+                                    Dim sql5 = "UPDATE USER_INCOME_SOURCE SET STATUS= @stat WHERE USERCODE=@ucode AND INC_S_CODE=@uscode"
+                                    Using cmd3 As New SQLiteCommand(sql5, conn)
+                                        cmd3.Parameters.AddWithValue("@stat", True)
+                                        cmd3.Parameters.AddWithValue("@ucode", userCode)
+                                        cmd3.Parameters.AddWithValue("@uscode", sourceCode)
+                                        cmd3.ExecuteNonQuery()
+                                        MessageBox.Show("MAPPING Re-Activated, do needful changes using modification tab")
+                                    End Using
+                                Else
+                                    MessageBox.Show("Operation Cancelled")
+                                End If
+
+                            End If
+                        End If
+                    End Using
+                End Using
+            End Using
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        End Try
+
+        Panel5.Visible = False
+
+    End Sub
+
+    Private Sub Button18_Click(sender As Object, e As EventArgs) Handles Button18.Click
+        Panel1.Visible = False
+        Panel2.Visible = False
+        Panel4.Visible = False
+        Panel5.Visible = False
+        listMappedUsers()
+        ListBox2.Visible = True
+
     End Sub
 End Class
