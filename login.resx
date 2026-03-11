@@ -117,16 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Label11.Text" xml:space="preserve">
-    <value>5.  Admin  - Create / Edit / View/ Delete)
-4.  User -  Create / Edit / View
-3.  User - Create / View
-2   User - View only
-
-Note:  Memorize the code, 
- it will require if password is forgetton.
-
-
-</value>
-  </data>
 </root>

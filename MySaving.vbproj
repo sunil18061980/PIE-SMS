@@ -7,6 +7,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <MyType>WindowsForms</MyType>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+  
   </PropertyGroup>
 
   <ItemGroup>
@@ -40,6 +41,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="icons8-close-up-100.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Import Include="System.Data" />
     <Import Include="System.Drawing" />
     <Import Include="System.Windows.Forms" />
@@ -50,6 +55,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="AddIncomeSource.Designer.vb">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AddIncomeSource.resx</DependentUpon>
+    </Compile>
     <Compile Update="My Project\Application.Designer.vb">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -63,6 +73,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="AddIncomeSource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AddIncomeSource.Designer.vb</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="My Project\Resources.resx">
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

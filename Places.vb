@@ -1,6 +1,4 @@
 ﻿Imports System.Data.SQLite
-Imports System.Data.SqlTypes
-Imports System.Drawing.Imaging
 
 Partial Public Class Places
     Public UserName As String
@@ -18,7 +16,7 @@ Partial Public Class Places
             MessageBox.Show("User not logged in. Please log in to continue.",
                         "Authentication Required", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Me.Close()
-            Exit Sub
+            '    Exit Sub
         End If
         LoadContinent()
         LoadLocationTree(TreeView1)

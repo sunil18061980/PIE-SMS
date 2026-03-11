@@ -6,7 +6,7 @@ Public Class ChangePassword
         Dim Result As DialogResult
         Result = MessageBox.Show("Are you sure, you want to   Close this password change  Window?", "Close This !!", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If Result = DialogResult.Yes Then
-            login.Show()
+            '  login.Show()
             Me.Close()
         Else
             Me.Show()
@@ -83,7 +83,7 @@ Public Class ChangePassword
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information)
             End Using
-            login.Show()
+            ' login.Show()
             Me.Close()
 
         Catch ex As Exception

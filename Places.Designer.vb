@@ -95,6 +95,7 @@ Partial Class Places
         Label18 = New Label()
         Label19 = New Label()
         Label20 = New Label()
+        TextBox15 = New TextBox()
         TabControl1.SuspendLayout()
         TabPage1.SuspendLayout()
         CType(AxWebBrowser1, ComponentModel.ISupportInitialize).BeginInit()
@@ -903,11 +904,19 @@ Partial Class Places
         Label20.TabIndex = 14
         Label20.Text = "Label20"
         ' 
+        ' TextBox15
+        ' 
+        TextBox15.Location = New Point(321, 36)
+        TextBox15.Name = "TextBox15"
+        TextBox15.Size = New Size(125, 27)
+        TextBox15.TabIndex = 15
+        ' 
         ' Places
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1838, 1055)
+        Controls.Add(TextBox15)
         Controls.Add(Label20)
         Controls.Add(Label19)
         Controls.Add(Label18)
@@ -1008,5 +1017,6 @@ Partial Class Places
     Friend WithEvents Label19 As Label
     Friend WithEvents AxWebBrowser1 As AxSHDocVw.AxWebBrowser
     Friend WithEvents Label20 As Label
+    Friend WithEvents TextBox15 As TextBox
 
 End Class

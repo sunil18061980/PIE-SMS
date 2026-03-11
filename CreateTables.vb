@@ -102,8 +102,19 @@ Public Class CreateTables
                     cmd.ExecuteNonQuery()
                 End Using
 
-
-
+                Dim sql6 As String = "CREATE TABLE IF NOT EXISTS SOURCEMAPPING (
+                    USEID  TEXT,
+                    SOURCE_NAME  TEXT,
+                    LAST_MODIFIED_DATE DATE,
+                    START_DATE  DATE,
+                    END_DATE  DATE,
+                    FIX_AMOUNT  REAL,
+                    PAYMENT_SCHEDULE  TEXT,
+                    PAYMENT_NEXT_DATE  DATE,
+                    ISACTIVE  BOOLEAN ) "
+                Using cmd As New SQLiteCommand(sql6, conn)
+                    cmd.ExecuteNonQuery()
+                End Using
 
 
 
