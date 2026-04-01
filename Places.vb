@@ -4,12 +4,13 @@ Partial Public Class Places
     Public UserName As String
     Public UserRole As Integer
     Public UserCode As Integer
+    Public UserID As String
     Private Sub Places_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If UserSession.IsLoggedIn Then
             UserName = UserSession.UserName
             UserRole = UserSession.UserRole
-            UserCode = UserSession.UserCode
-            UserID = UserSession.UserID
+            UserCode = UserSession.ActiveUserCode
+            UserID = UserSession.ActiveUserID
             MessageBox.Show("Welcome you are logged user .",
                         "Authentication Done", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         Else
@@ -114,13 +115,13 @@ Partial Public Class Places
 
         If ListBox1.SelectedItem Is Nothing Then Exit Sub
 
-        Dim continentName As String = ListBox1.SelectedItem.ToString()
+        Dim CONTINENTNAME As String = ListBox1.SelectedItem.ToString()
 
-        Dim continentCode As Integer = GetContinentCode(continentName)
+        Dim CONTINENTCODE As Integer = GetContinentCode(CONTINENTNAME)
 
-        If continentCode <> -1 Then
-            TextBox3.Text = continentCode.ToString()
-            LoadCountryGrid(continentCode, DataGridView2)
+        If CONTINENTCODE <> -1 Then
+            TextBox3.Text = CONTINENTCODE.ToString()
+            LoadCountryGrid(CONTINENTCODE, DataGridView2)
             '  LoadCountries(conn, TreeView2)
             AddNewCountry()
         End If
@@ -146,19 +147,19 @@ Partial Public Class Places
 
 
     End Sub
-    ' To make sure save button active ony when continent name is more than of 3 characters and replace button is disabled
+    ' To make sure save button active ony when CONTINENT name is more than of 3 characters and replace button is disabled
     Private Sub ListBox2_SelectedIndexChanged(sender As Object, e As EventArgs) _
     Handles ListBox2.SelectedIndexChanged
 
         If ListBox2.SelectedItem Is Nothing Then Exit Sub
 
-        Dim continentName As String = ListBox2.SelectedItem.ToString()
+        Dim CONTINENTNAME As String = ListBox2.SelectedItem.ToString()
 
-        Dim continentCode As Integer = GetContinentCode(continentName)
+        Dim CONTINENTCODE As Integer = GetContinentCode(CONTINENTNAME)
 
-        If continentCode <> -1 Then
-            LoadCountryGrid(continentCode, DataGridView3)
-            TextBox6.Text = continentCode.ToString()
+        If CONTINENTCODE <> -1 Then
+            LoadCountryGrid(CONTINENTCODE, DataGridView3)
+            TextBox6.Text = CONTINENTCODE.ToString()
 
         End If
 
@@ -169,20 +170,20 @@ Partial Public Class Places
 
         If ListBox3.SelectedItem Is Nothing Then Exit Sub
 
-        Dim continentName As String = ListBox3.SelectedItem.ToString()
+        Dim CONTINENTNAME As String = ListBox3.SelectedItem.ToString()
 
-        Dim continentCode As Integer = GetContinentCode(continentName)
+        Dim CONTINENTCODE As Integer = GetContinentCode(CONTINENTNAME)
 
-        If continentCode <> -1 Then
-            TextBox10.Text = continentCode.ToString()
-            LoadCountryGrid(continentCode, DataGridView4)
+        If CONTINENTCODE <> -1 Then
+            TextBox10.Text = CONTINENTCODE.ToString()
+            LoadCountryGrid(CONTINENTCODE, DataGridView4)
         End If
         DataGridView7.DataSource = Nothing
         DataGridView7.Rows.Clear()
 
     End Sub
-    ' Function to find the continent code from continent name when selected from list box
-    Public Function GetContinentCode(continentName As String) As Integer
+    ' Function to find the CONTINENT code from CONTINENT name when selected from list box
+    Public Function GetContinentCode(CONTINENTNAME As String) As Integer
 
         Try
             Using conn As SQLiteConnection = DBConnection.GetConnection()
@@ -194,7 +195,7 @@ Partial Public Class Places
                  WHERE CONTINENTNAME = @name"
 
                 Using cmd As New SQLiteCommand(sql, conn)
-                    cmd.Parameters.AddWithValue("@name", continentName)
+                    cmd.Parameters.AddWithValue("@name", CONTINENTNAME)
 
                     Dim result = cmd.ExecuteScalar()
 
@@ -205,14 +206,14 @@ Partial Public Class Places
             End Using
 
         Catch ex As Exception
-            MessageBox.Show("Error getting continent code: " & ex.Message,
+            MessageBox.Show("Error getting CONTINENT code: " & ex.Message,
                         "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
         Return -1   ' Invalid code
     End Function
-    ' Default function to load country grid for the selected continent in all tables
-    Public Function LoadCountryGrid(continentCode As Integer,
+    ' Default function to load country grid for the selected CONTINENT in all tables
+    Public Function LoadCountryGrid(CONTINENTCODE As Integer,
                                 dgv As DataGridView) As Boolean
         Try
             Using conn As SQLiteConnection = DBConnection.GetConnection()
@@ -226,7 +227,7 @@ Partial Public Class Places
                  ORDER BY COUNTRYNAME"
 
                 Using cmd As New SQLiteCommand(sql, conn)
-                    cmd.Parameters.AddWithValue("@code", continentCode)
+                    cmd.Parameters.AddWithValue("@code", CONTINENTCODE)
 
                     Using da As New SQLiteDataAdapter(cmd)
                         Dim dt As New DataTable()
@@ -283,7 +284,7 @@ Partial Public Class Places
         End Try
     End Function
     ' Funtion to load state grid for the selected country in all tabs
-    Public Function LoadStateGrid(continentCode As Integer, countryCode As Integer,
+    Public Function LoadStateGrid(CONTINENTCODE As Integer, countryCode As Integer,
                                 dgv As DataGridView) As Boolean
         Try
             Using conn As SQLiteConnection = DBConnection.GetConnection()
@@ -298,7 +299,7 @@ Partial Public Class Places
 
                 Using cmd As New SQLiteCommand(sql, conn)
                     cmd.Parameters.AddWithValue("@code", countryCode)
-                    cmd.Parameters.AddWithValue("@code1", continentCode)
+                    cmd.Parameters.AddWithValue("@code1", CONTINENTCODE)
 
                     Using da As New SQLiteDataAdapter(cmd)
                         Dim dt As New DataTable()
@@ -352,7 +353,7 @@ Partial Public Class Places
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         Me.Close()
     End Sub
-    ' Load continent List in all Table when they are clicked and called from respective tab selection
+    ' Load CONTINENT List in all Table when they are clicked and called from respective tab selection
 
 
     Private Sub Load_continentList()
@@ -360,7 +361,7 @@ Partial Public Class Places
             Using conn As SQLiteConnection = DBConnection.GetConnection()
                 conn.Open()
 
-                Dim query As String = "SELECT * FROM continent"
+                Dim query As String = "SELECT * FROM CONTINENT"
 
                 Using cmd As New SQLiteCommand(query, conn)
                     Using da As New SQLiteDataAdapter(cmd)
@@ -384,12 +385,12 @@ Partial Public Class Places
             End Using
 
         Catch ex As Exception
-            MessageBox.Show("Error loading continent: " & ex.Message)
+            MessageBox.Show("Error loading CONTINENT: " & ex.Message)
         End Try
         Button4.Enabled = False
 
     End Sub
-    ' Function to prepare for new continent entry
+    ' Function to prepare for new CONTINENT entry
     Private Sub NewContinent()
         'Code to file Continent code and name in textbox1 and textbox2
 
@@ -400,7 +401,7 @@ Partial Public Class Places
                 End If
 
                 ' Get the maximum of ContinentCode 
-                Dim query As String = "SELECT MAX(ContinentCode) FROM continent"
+                Dim query As String = "SELECT MAX(ContinentCode) FROM CONTINENT"
                 Using cmd As New SQLiteCommand(query, Newconn)
                     Dim result = cmd.ExecuteScalar()
 
@@ -417,7 +418,7 @@ Partial Public Class Places
             End Using
 
         Catch ex As Exception
-            MessageBox.Show("Error determining continent code: " & ex.Message)
+            MessageBox.Show("Error determining CONTINENT code: " & ex.Message)
 
 
         End Try
@@ -425,9 +426,9 @@ Partial Public Class Places
 
         Button4.Enabled = False
     End Sub
-    ' Load to prepare for new continent entry
+    ' Load to prepare for new CONTINENT entry
     Private Sub LoadContinent()
-        'update the continent list if any list exist
+        'update the CONTINENT list if any list exist
         Load_continentList()
         NewContinent()
 
@@ -450,17 +451,17 @@ Partial Public Class Places
             End Using
 
         Catch ex As Exception
-            MessageBox.Show("Error checking continent count: " & ex.Message)
+            MessageBox.Show("Error checking CONTINENT count: " & ex.Message)
         End Try
         Return True
     End Function
-    ' Call new continent function on button click for new continent entry
+    ' Call new CONTINENT function on button click for new CONTINENT entry
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         If (CheckcontinentCount()) Then
             NewContinent()
         End If
     End Sub
-    ' Function to save new continent entry after checking for duplicate continent name
+    ' Function to save new CONTINENT entry after checking for duplicate CONTINENT name
     Private Sub SaveContinent()
         If (TextBox2.Text.Trim() = String.Empty) Then
             MessageBox.Show("Continent Name Can't be Empty", "Input Required",
@@ -469,8 +470,8 @@ Partial Public Class Places
         End If
         Using conn As SQLiteConnection = DBConnection.GetConnection()
             conn.Open()
-            'To check if the continent name already exists
-            Dim CheckName As String = "SELECT COUNT(*) FROM continent 
+            'To check if the CONTINENT name already exists
+            Dim CheckName As String = "SELECT COUNT(*) FROM CONTINENT 
                                     WHERE ContinentName = @name"
             Using checkcmd As New SQLiteCommand(CheckName, conn)
                 checkcmd.Parameters.AddWithValue("@name", TextBox2.Text.Trim())
@@ -482,7 +483,7 @@ Partial Public Class Places
                 End If
             End Using
             Dim insertQuery As String =
-                "INSERT INTO continent (ContinentCode, ContinentName) 
+                "INSERT INTO CONTINENT (ContinentCode, ContinentName) 
              VALUES (@code, @name)"
             Using cmd As New SQLiteCommand(insertQuery, conn)
                 cmd.Parameters.AddWithValue("@code", TextBox1.Text.Trim())
@@ -532,8 +533,8 @@ Partial Public Class Places
         End If
         Using conn As SQLiteConnection = DBConnection.GetConnection()
             conn.Open()
-            'To check if the continent name already exists
-            Dim CheckName As String = "SELECT COUNT(*) FROM continent 
+            'To check if the CONTINENT name already exists
+            Dim CheckName As String = "SELECT COUNT(*) FROM CONTINENT 
                                     WHERE ContinentName = @name 
                                     AND ContinentCode <> @code"
             Using checkcmd As New SQLiteCommand(CheckName, conn)
@@ -548,7 +549,7 @@ Partial Public Class Places
             End Using
 
             Dim updateQuery As String =
-                "UPDATE continent 
+                "UPDATE CONTINENT 
              SET ContinentName = @name 
              WHERE ContinentCode = @code"
             Using cmd As New SQLiteCommand(updateQuery, conn)
@@ -722,8 +723,8 @@ Partial Public Class Places
             MessageBox.Show("Country details saved successfully.",
                     "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             '
-            Dim continentCode As Integer = Convert.ToInt32(TextBox3.Text.Trim())
-            LoadCountryGrid(continentCode, DataGridView2)
+            Dim CONTINENTCODE As Integer = Convert.ToInt32(TextBox3.Text.Trim())
+            LoadCountryGrid(CONTINENTCODE, DataGridView2)
             AddNewCountry()
 
         Catch ex As Exception
@@ -733,13 +734,13 @@ Partial Public Class Places
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
         If TextBox3.Text.Trim() = String.Empty Then
-            MessageBox.Show("Please select a continent first.",
+            MessageBox.Show("Please select a CONTINENT first.",
                             "Input Required", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
-        Dim continentCode As Integer = Convert.ToInt32(TextBox3.Text.Trim())
-        TextBox3.Text = continentCode.ToString()
-        LoadCountryGrid(continentCode, DataGridView2)
+        Dim CONTINENTCODE As Integer = Convert.ToInt32(TextBox3.Text.Trim())
+        TextBox3.Text = CONTINENTCODE.ToString()
+        LoadCountryGrid(CONTINENTCODE, DataGridView2)
         AddNewCountry()
     End Sub
 
@@ -780,8 +781,8 @@ Partial Public Class Places
 
             MessageBox.Show("Country replaced successfully.",
                         "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Dim continentCode As Integer = Convert.ToInt32(TextBox3.Text.Trim())
-            LoadCountryGrid(continentCode, DataGridView2)
+            Dim CONTINENTCODE As Integer = Convert.ToInt32(TextBox3.Text.Trim())
+            LoadCountryGrid(CONTINENTCODE, DataGridView2)
             AddNewCountry()
         Catch ex As Exception
             MessageBox.Show("Error updating country: " & ex.Message,
@@ -793,7 +794,7 @@ Partial Public Class Places
     'Function to clear all fields and reload Continent list for new Country entry
     Private Sub Button7_Click(sender As Object, e As EventArgs) Handles Button7.Click
         If TextBox3.Text.Trim() = String.Empty Then
-            MessageBox.Show("Please select a continent first.",
+            MessageBox.Show("Please select a CONTINENT first.",
                             "Input Required", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             'clear country list and reset fields so that button/text box do not cause confusion and use by mistake fill wrong data
 
@@ -805,8 +806,8 @@ Partial Public Class Places
             FillContinentList(ListBox1)
             Exit Sub
         End If
-        Dim continentCode As Integer = Convert.ToInt32(TextBox3.Text.Trim())
-        LoadCountryGrid(continentCode, DataGridView2)
+        Dim CONTINENTCODE As Integer = Convert.ToInt32(TextBox3.Text.Trim())
+        LoadCountryGrid(CONTINENTCODE, DataGridView2)
         AddNewCountry()
     End Sub
 
@@ -822,10 +823,10 @@ Partial Public Class Places
         TextBox7.Text = row.Cells("Country Code").Value.ToString()
         Dim CountryName As String = row.Cells("Country Name").Value.ToString()
         Dim countryCode As Integer = Convert.ToInt32(row.Cells("Country Code").Value)
-        Dim continentCode As Integer = Convert.ToInt32(TextBox6.Text.Trim())
+        Dim CONTINENTCODE As Integer = Convert.ToInt32(TextBox6.Text.Trim())
         TextBox9.Text = String.Empty
         TextBox8.Text = String.Empty
-        LoadStateGrid(continentCode, countryCode, DataGridView5)
+        LoadStateGrid(CONTINENTCODE, countryCode, DataGridView5)
 
     End Sub
 
@@ -843,11 +844,11 @@ Partial Public Class Places
         TextBox11.Text = row.Cells("Country Code").Value.ToString()
         Dim CountryName As String = row.Cells("Country Name").Value.ToString()
         Dim countryCode As Integer = Convert.ToInt32(row.Cells("Country Code").Value)
-        Dim continentCode As Integer = Convert.ToInt32(TextBox10.Text.Trim())
+        Dim CONTINENTCODE As Integer = Convert.ToInt32(TextBox10.Text.Trim())
         TextBox12.Text = String.Empty
         TextBox13.Text = String.Empty
         TextBox14.Text = String.Empty
-        LoadStateGrid(continentCode, countryCode, DataGridView6)
+        LoadStateGrid(CONTINENTCODE, countryCode, DataGridView6)
 
     End Sub
 
@@ -855,11 +856,11 @@ Partial Public Class Places
     Private Sub Button12_Click(sender As Object, e As EventArgs) Handles Button12.Click
         If TextBox6.Text.Trim() = String.Empty Or TextBox7.Text.Trim() = String.Empty Then
 
-            MessageBox.Show("Please select a continent and country first.",
+            MessageBox.Show("Please select a CONTINENT and country first.",
                             "Input Required", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
-        Dim continentCode As Integer = Convert.ToInt32(TextBox6.Text.Trim())
+        Dim CONTINENTCODE As Integer = Convert.ToInt32(TextBox6.Text.Trim())
         Dim countryCode As Integer = Convert.ToInt32(TextBox7.Text.Trim())
         Try
             Using conn As SQLiteConnection = DBConnection.GetConnection()
@@ -890,7 +891,7 @@ Partial Public Class Places
 
     End Sub
 
-    'Function to save new state in selected country as well as continent
+    'Function to save new state in selected country as well as CONTINENT
     Private Sub Button11_Click(sender As Object, e As EventArgs) Handles Button11.Click
         If TextBox6.Text.Trim() = String.Empty Or
            TextBox7.Text.Trim() = String.Empty Or
@@ -944,11 +945,11 @@ Partial Public Class Places
                             "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
             Dim countryCode As Integer = Convert.ToInt32(TextBox7.Text.Trim())
-            Dim continentCode As Integer = Convert.ToInt32(TextBox6.Text.Trim())
+            Dim CONTINENTCODE As Integer = Convert.ToInt32(TextBox6.Text.Trim())
             TextBox9.Text = String.Empty
             TextBox8.Text = String.Empty
             TextBox9.Enabled = False
-            LoadStateGrid(continentCode, countryCode, DataGridView5)
+            LoadStateGrid(CONTINENTCODE, countryCode, DataGridView5)
         Catch ex As Exception
             MessageBox.Show("Error saving state: " & ex.Message,
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1034,11 +1035,11 @@ Partial Public Class Places
                             "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
             'Update State Grid with Updated data
             Dim countryCode As Integer = Convert.ToInt32(TextBox7.Text.Trim())
-            Dim continentCode As Integer = Convert.ToInt32(TextBox6.Text.Trim())
+            Dim CONTINENTCODE As Integer = Convert.ToInt32(TextBox6.Text.Trim())
             TextBox9.Text = String.Empty
             TextBox8.Text = String.Empty
             TextBox9.Enabled = False
-            LoadStateGrid(continentCode, countryCode, DataGridView5)
+            LoadStateGrid(CONTINENTCODE, countryCode, DataGridView5)
 
 
         Catch ex As Exception
@@ -1058,16 +1059,16 @@ Partial Public Class Places
         Dim StateName As String = row.Cells("State Name").Value.ToString()
         Dim stateCode As Integer = Convert.ToInt32(row.Cells("State Code").Value)
         Dim countryCode As Integer = Convert.ToInt32(TextBox11.Text.Trim())
-        Dim continentCode As Integer = Convert.ToInt32(TextBox10.Text.Trim())
+        Dim CONTINENTCODE As Integer = Convert.ToInt32(TextBox10.Text.Trim())
         TextBox14.Text = String.Empty
         TextBox13.Text = String.Empty
         DataGridView7.DataSource = Nothing
         DataGridView7.Rows.Clear()
 
-        LoadCityGrid(continentCode, countryCode, stateCode, DataGridView7)
+        LoadCityGrid(CONTINENTCODE, countryCode, stateCode, DataGridView7)
     End Sub
     'Load City Grid for the selected state
-    Public Function LoadCityGrid(continentCode As Integer,
+    Public Function LoadCityGrid(CONTINENTCODE As Integer,
                         countryCode As Integer,
                         stateCode As Integer,
                         dgv As DataGridView) As Boolean
@@ -1085,7 +1086,7 @@ Partial Public Class Places
                  ORDER BY CITYNAME"
 
                 Using cmd As New SQLiteCommand(query, conn)
-                    cmd.Parameters.AddWithValue("@CNTCODE", continentCode)
+                    cmd.Parameters.AddWithValue("@CNTCODE", CONTINENTCODE)
                     cmd.Parameters.AddWithValue("@CCODE", countryCode)
                     cmd.Parameters.AddWithValue("@SCODE", stateCode)
 
@@ -1173,12 +1174,12 @@ Partial Public Class Places
             End Using
             MessageBox.Show("City saved successfully.",
                             "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            Dim continentCode As Integer = Convert.ToInt32(TextBox10.Text.Trim())
+            Dim CONTINENTCODE As Integer = Convert.ToInt32(TextBox10.Text.Trim())
             Dim countryCode As Integer = Convert.ToInt32(TextBox11.Text.Trim())
             Dim stateCode As Integer = Convert.ToInt32(TextBox12.Text.Trim())
             TextBox14.Text = String.Empty
             TextBox14.Enabled = False
-            LoadCityGrid(continentCode, countryCode, stateCode, DataGridView7)
+            LoadCityGrid(CONTINENTCODE, countryCode, stateCode, DataGridView7)
 
         Catch ex As Exception
             MessageBox.Show("Error saving city: " & ex.Message,
@@ -1190,7 +1191,7 @@ Partial Public Class Places
         If TextBox10.Text.Trim() = String.Empty Or
            TextBox11.Text.Trim() = String.Empty Or
            TextBox12.Text.Trim() = String.Empty Then
-            MessageBox.Show("Please select a continent, country and state first.",
+            MessageBox.Show("Please select a CONTINENT, country and state first.",
                             "Input Required", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             'clear city list and reset fields so that button/text box do not cause confusion and use by mistake fill wrong data
             DataGridView7.Rows.Clear()
@@ -1280,7 +1281,7 @@ Partial Public Class Places
 
 
 
-    ' Function to load tree view for continent, country, state and city
+    ' Function to load tree view for CONTINENT, country, state and city
     Public Sub LoadLocationTree(tv As TreeView)
 
         tv.Nodes.Clear()
@@ -1342,7 +1343,7 @@ Partial Public Class Places
 
     Private Sub LoadStates(conn As SQLiteConnection,
                        countryNode As TreeNode,
-                       continentCode As Integer)
+                       CONTINENTCODE As Integer)
 
         Dim sql As String =
         "SELECT STATECODE, STATENAME
@@ -1353,7 +1354,7 @@ Partial Public Class Places
 
         Using cmd As New SQLiteCommand(sql, conn)
             cmd.Parameters.AddWithValue("@CCODE", countryNode.Tag)
-            cmd.Parameters.AddWithValue("@CNT", continentCode)
+            cmd.Parameters.AddWithValue("@CNT", CONTINENTCODE)
 
             Using rdr = cmd.ExecuteReader()
                 While rdr.Read()
@@ -1362,7 +1363,7 @@ Partial Public Class Places
                     stateNode.Tag = rdr("STATECODE")
                     countryNode.Nodes.Add(stateNode)
 
-                    LoadCities(conn, stateNode, countryNode.Tag, continentCode)
+                    LoadCities(conn, stateNode, countryNode.Tag, CONTINENTCODE)
                 End While
             End Using
         End Using
@@ -1373,7 +1374,7 @@ Partial Public Class Places
     Private Sub LoadCities(conn As SQLiteConnection,
                        stateNode As TreeNode,
                        countryCode As Integer,
-                       continentCode As Integer)
+                       CONTINENTCODE As Integer)
 
         Dim sql As String =
         "SELECT CITYCODE, CITYNAME
@@ -1386,7 +1387,7 @@ Partial Public Class Places
         Using cmd As New SQLiteCommand(sql, conn)
             cmd.Parameters.AddWithValue("@SCODE", stateNode.Tag)
             cmd.Parameters.AddWithValue("@CCODE", countryCode)
-            cmd.Parameters.AddWithValue("@CNT", continentCode)
+            cmd.Parameters.AddWithValue("@CNT", CONTINENTCODE)
 
             Using rdr = cmd.ExecuteReader()
                 While rdr.Read()
@@ -1494,11 +1495,6 @@ Partial Public Class Places
 
     End Sub
 
-    Private Sub Label20_Click(sender As Object, e As EventArgs) Handles Label20.Click
 
-    End Sub
 
-    Private Sub Label20_Click_1(sender As Object, e As EventArgs) Handles Label20.Click
-
-    End Sub
 End Class

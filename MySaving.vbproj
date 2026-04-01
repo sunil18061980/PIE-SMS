@@ -11,12 +11,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ChangePassword.Designer.vb" />
+    <Compile Remove="ChangePassword.vb" />
     <Compile Remove="Form1.Designer.vb" />
     <Compile Remove="Form1.vb" />
     <Compile Remove="UserControl1.Designer.vb" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="ChangePassword.resx" />
     <EmbeddedResource Remove="Form1.resx" />
   </ItemGroup>
 
