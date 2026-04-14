@@ -668,7 +668,7 @@ Public Class IncomeSources
     End Sub
 
 
-    'To update the next payment date based on the payment schedule selected by the user in the combobox4
+    'To update the next payment date based on the payment schedule selected by the user in the ComboBox4
     'and the last payment date in the date time picker , can use this function which other part of this form
     Private Function UpdatePaymentScheduleDate(ByVal duration As String, ByVal lastDate As DateTime) As DateTime
         Select Case duration.Trim().ToUpper()
@@ -692,11 +692,7 @@ Public Class IncomeSources
 
     End Function
     Private Sub ComboBox4_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ComboBox4.SelectedIndexChanged
-        Dim duration = ComboBox4.SelectedItem.ToString().Trim()
-        Dim lastDate = DateTimePicker2.Value
-
-        DateTimePicker4.Value = UpdatePaymentScheduleDate(duration, lastDate)
-
+        DateTimePicker4.Value = ProjectUtilities.UpdatePaymentScheduleDate(ComboBox4.Text.Trim(), DateTimePicker2.Value)
     End Sub
 
 

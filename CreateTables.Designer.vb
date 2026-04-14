@@ -38,7 +38,7 @@ Partial Class CreateTables
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 450)
+        ClientSize = New Size(880, 450)
         Controls.Add(Button1)
         Name = "CreateTables"
         Text = "Form2"

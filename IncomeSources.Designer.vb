@@ -832,13 +832,13 @@ Partial Class IncomeSources
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1341, 745)
-        Controls.Add(Panel4)
         Controls.Add(Button11)
         Controls.Add(Button6)
         Controls.Add(Panel2)
         Controls.Add(Button2)
         Controls.Add(Button1)
         Controls.Add(Panel1)
+        Controls.Add(Panel4)
         ForeColor = Color.Blue
         Name = "IncomeSources"
         Text = "IncomeSources"

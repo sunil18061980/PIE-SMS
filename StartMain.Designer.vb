@@ -33,8 +33,8 @@ Partial Class StartMain
         CATEGORYToolStripMenuItem1 = New ToolStripMenuItem()
         DISPLAYINCOMEToolStripMenuItem = New ToolStripMenuItem()
         CHECKPENDINGToolStripMenuItem = New ToolStripMenuItem()
-        EXPECTEDToolStripMenuItem = New ToolStripMenuItem()
         FORCASTINGToolStripMenuItem = New ToolStripMenuItem()
+        INCOMEALLOCATIONToolStripMenuItem = New ToolStripMenuItem()
         EXPEMSESToolStripMenuItem = New ToolStripMenuItem()
         VENDORSToolStripMenuItem = New ToolStripMenuItem()
         ITEMSToolStripMenuItem = New ToolStripMenuItem()
@@ -46,6 +46,9 @@ Partial Class StartMain
         BANKBALANCEToolStripMenuItem = New ToolStripMenuItem()
         PAYMENTToolStripMenuItem = New ToolStripMenuItem()
         RECEIPTToolStripMenuItem = New ToolStripMenuItem()
+        BANKACCOUNTSToolStripMenuItem = New ToolStripMenuItem()
+        PERSNALACCOUNTToolStripMenuItem = New ToolStripMenuItem()
+        BANKDETAILSToolStripMenuItem = New ToolStripMenuItem()
         SAVINGToolStripMenuItem = New ToolStripMenuItem()
         CATETORYToolStripMenuItem = New ToolStripMenuItem()
         SAVINGACCOUNTSToolStripMenuItem = New ToolStripMenuItem()
@@ -58,7 +61,6 @@ Partial Class StartMain
         Button4 = New Button()
         Button5 = New Button()
         Button6 = New Button()
-        INCOMEALLOCATIONToolStripMenuItem = New ToolStripMenuItem()
         MenuStrip1.SuspendLayout()
         SuspendLayout()
         ' 
@@ -105,7 +107,7 @@ Partial Class StartMain
         ' 
         ' INCOMESOURCEToolStripMenuItem
         ' 
-        INCOMESOURCEToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {INCOMESOURCEToolStripMenuItem1, CATEGORYToolStripMenuItem1, DISPLAYINCOMEToolStripMenuItem, CHECKPENDINGToolStripMenuItem, EXPECTEDToolStripMenuItem, FORCASTINGToolStripMenuItem, INCOMEALLOCATIONToolStripMenuItem})
+        INCOMESOURCEToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {INCOMESOURCEToolStripMenuItem1, CATEGORYToolStripMenuItem1, DISPLAYINCOMEToolStripMenuItem, CHECKPENDINGToolStripMenuItem, FORCASTINGToolStripMenuItem, INCOMEALLOCATIONToolStripMenuItem})
         INCOMESOURCEToolStripMenuItem.Name = "INCOMESOURCEToolStripMenuItem"
         INCOMESOURCEToolStripMenuItem.Size = New Size(138, 24)
         INCOMESOURCEToolStripMenuItem.Text = "INCOME SOURCE"
@@ -134,17 +136,17 @@ Partial Class StartMain
         CHECKPENDINGToolStripMenuItem.Size = New Size(238, 26)
         CHECKPENDINGToolStripMenuItem.Text = "CHECK PENDING"
         ' 
-        ' EXPECTEDToolStripMenuItem
-        ' 
-        EXPECTEDToolStripMenuItem.Name = "EXPECTEDToolStripMenuItem"
-        EXPECTEDToolStripMenuItem.Size = New Size(238, 26)
-        EXPECTEDToolStripMenuItem.Text = "EXPECTED"
-        ' 
         ' FORCASTINGToolStripMenuItem
         ' 
         FORCASTINGToolStripMenuItem.Name = "FORCASTINGToolStripMenuItem"
         FORCASTINGToolStripMenuItem.Size = New Size(238, 26)
         FORCASTINGToolStripMenuItem.Text = "FORCASTING"
+        ' 
+        ' INCOMEALLOCATIONToolStripMenuItem
+        ' 
+        INCOMEALLOCATIONToolStripMenuItem.Name = "INCOMEALLOCATIONToolStripMenuItem"
+        INCOMEALLOCATIONToolStripMenuItem.Size = New Size(238, 26)
+        INCOMEALLOCATIONToolStripMenuItem.Text = "INCOME ALLOCATION"
         ' 
         ' EXPEMSESToolStripMenuItem
         ' 
@@ -185,7 +187,7 @@ Partial Class StartMain
         ' 
         ' FINANCIALToolStripMenuItem
         ' 
-        FINANCIALToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {CASHBALANCEToolStripMenuItem, BANKBALANCEToolStripMenuItem, PAYMENTToolStripMenuItem, RECEIPTToolStripMenuItem})
+        FINANCIALToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {CASHBALANCEToolStripMenuItem, BANKBALANCEToolStripMenuItem, PAYMENTToolStripMenuItem, RECEIPTToolStripMenuItem, BANKACCOUNTSToolStripMenuItem})
         FINANCIALToolStripMenuItem.Name = "FINANCIALToolStripMenuItem"
         FINANCIALToolStripMenuItem.Size = New Size(96, 24)
         FINANCIALToolStripMenuItem.Text = "FINANCIAL"
@@ -193,26 +195,45 @@ Partial Class StartMain
         ' CASHBALANCEToolStripMenuItem
         ' 
         CASHBALANCEToolStripMenuItem.Name = "CASHBALANCEToolStripMenuItem"
-        CASHBALANCEToolStripMenuItem.Size = New Size(199, 26)
+        CASHBALANCEToolStripMenuItem.Size = New Size(211, 26)
         CASHBALANCEToolStripMenuItem.Text = "CASH BALANCE"
         ' 
         ' BANKBALANCEToolStripMenuItem
         ' 
         BANKBALANCEToolStripMenuItem.Name = "BANKBALANCEToolStripMenuItem"
-        BANKBALANCEToolStripMenuItem.Size = New Size(199, 26)
+        BANKBALANCEToolStripMenuItem.Size = New Size(211, 26)
         BANKBALANCEToolStripMenuItem.Text = "BANK BALANCE"
         ' 
         ' PAYMENTToolStripMenuItem
         ' 
         PAYMENTToolStripMenuItem.Name = "PAYMENTToolStripMenuItem"
-        PAYMENTToolStripMenuItem.Size = New Size(199, 26)
+        PAYMENTToolStripMenuItem.Size = New Size(211, 26)
         PAYMENTToolStripMenuItem.Text = "PAYMENT"
         ' 
         ' RECEIPTToolStripMenuItem
         ' 
         RECEIPTToolStripMenuItem.Name = "RECEIPTToolStripMenuItem"
-        RECEIPTToolStripMenuItem.Size = New Size(199, 26)
+        RECEIPTToolStripMenuItem.Size = New Size(211, 26)
         RECEIPTToolStripMenuItem.Text = "RECEIPT"
+        ' 
+        ' BANKACCOUNTSToolStripMenuItem
+        ' 
+        BANKACCOUNTSToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {PERSNALACCOUNTToolStripMenuItem, BANKDETAILSToolStripMenuItem})
+        BANKACCOUNTSToolStripMenuItem.Name = "BANKACCOUNTSToolStripMenuItem"
+        BANKACCOUNTSToolStripMenuItem.Size = New Size(211, 26)
+        BANKACCOUNTSToolStripMenuItem.Text = "BANK ACCOUNTS"
+        ' 
+        ' PERSNALACCOUNTToolStripMenuItem
+        ' 
+        PERSNALACCOUNTToolStripMenuItem.Name = "PERSNALACCOUNTToolStripMenuItem"
+        PERSNALACCOUNTToolStripMenuItem.Size = New Size(203, 26)
+        PERSNALACCOUNTToolStripMenuItem.Text = "BANK ACCOUNT"
+        ' 
+        ' BANKDETAILSToolStripMenuItem
+        ' 
+        BANKDETAILSToolStripMenuItem.Name = "BANKDETAILSToolStripMenuItem"
+        BANKDETAILSToolStripMenuItem.Size = New Size(203, 26)
+        BANKDETAILSToolStripMenuItem.Text = "BANK DETAILS"
         ' 
         ' SAVINGToolStripMenuItem
         ' 
@@ -305,12 +326,6 @@ Partial Class StartMain
         Button6.Text = "PAYMENT"
         Button6.UseVisualStyleBackColor = True
         ' 
-        ' INCOMEALLOCATIONToolStripMenuItem
-        ' 
-        INCOMEALLOCATIONToolStripMenuItem.Name = "INCOMEALLOCATIONToolStripMenuItem"
-        INCOMEALLOCATIONToolStripMenuItem.Size = New Size(238, 26)
-        INCOMEALLOCATIONToolStripMenuItem.Text = "INCOME ALLOCATION"
-        ' 
         ' StartMain
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
@@ -325,6 +340,7 @@ Partial Class StartMain
         Controls.Add(MenuStrip1)
         MainMenuStrip = MenuStrip1
         Name = "StartMain"
+        StartPosition = FormStartPosition.CenterScreen
         Text = "StartMain"
         MenuStrip1.ResumeLayout(False)
         MenuStrip1.PerformLayout()
@@ -347,7 +363,6 @@ Partial Class StartMain
     Friend WithEvents ITEMSToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents DISPLAYINCOMEToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CHECKPENDINGToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents EXPECTEDToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents FORCASTINGToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents CATEGORYToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents CATEGORYToolStripMenuItem As ToolStripMenuItem
@@ -369,4 +384,7 @@ Partial Class StartMain
     Friend WithEvents Button5 As Button
     Friend WithEvents Button6 As Button
     Friend WithEvents INCOMEALLOCATIONToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents BANKACCOUNTSToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents PERSNALACCOUNTToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents BANKDETAILSToolStripMenuItem As ToolStripMenuItem
 End Class

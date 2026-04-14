@@ -68,4 +68,26 @@
         IA.ShowDialog()
 
     End Sub
+
+    Private Sub CATEGORYToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CATEGORYToolStripMenuItem.Click
+        Dim AE As New AddExpensesCategory()
+        AE.ShowDialog()
+    End Sub
+
+
+
+    Private Sub PERSNALACCOUNTToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PERSNALACCOUNTToolStripMenuItem.Click
+        Dim MBA As New ManageBankAccounts()
+        MBA.ShowDialog()
+    End Sub
+
+    Private Sub BANKDETAILSToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BANKDETAILSToolStripMenuItem.Click
+        Dim BankD As New BankDetails()
+        BankD.ShowDialog()
+    End Sub
+
+    Private Sub CHECKPENDINGToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CHECKPENDINGToolStripMenuItem.Click
+        Dim CPI As New CheckPendingIncome()
+        CPI.ShowDialog()
+    End Sub
 End Class

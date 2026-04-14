@@ -31,6 +31,7 @@ Partial Class IncomeCategory
         ListBox1 = New ListBox()
         Button2 = New Button()
         GroupBox1 = New GroupBox()
+        Button3 = New Button()
         GroupBox2 = New GroupBox()
         Label1 = New Label()
         GroupBox1.SuspendLayout()
@@ -44,9 +45,9 @@ Partial Class IncomeCategory
         Label2.ForeColor = SystemColors.ButtonHighlight
         Label2.Location = New Point(81, 94)
         Label2.Name = "Label2"
-        Label2.Size = New Size(79, 31)
+        Label2.Size = New Size(198, 31)
         Label2.TabIndex = 1
-        Label2.Text = "NAME"
+        Label2.Text = "CATEGORY NAME"
         ' 
         ' Label3
         ' 
@@ -73,7 +74,7 @@ Partial Class IncomeCategory
         ' 
         Button1.Font = New Font("Segoe UI", 13.8F)
         Button1.ForeColor = SystemColors.ActiveCaptionText
-        Button1.Location = New Point(42, 293)
+        Button1.Location = New Point(178, 296)
         Button1.Name = "Button1"
         Button1.Size = New Size(115, 42)
         Button1.TabIndex = 5
@@ -82,6 +83,7 @@ Partial Class IncomeCategory
         ' 
         ' TextBox1
         ' 
+        TextBox1.CharacterCasing = CharacterCasing.Upper
         TextBox1.Font = New Font("Segoe UI", 13.8F)
         TextBox1.Location = New Point(67, 128)
         TextBox1.Name = "TextBox1"
@@ -111,7 +113,7 @@ Partial Class IncomeCategory
         ' 
         Button2.Font = New Font("Segoe UI", 13.8F)
         Button2.ForeColor = SystemColors.ActiveCaptionText
-        Button2.Location = New Point(188, 293)
+        Button2.Location = New Point(319, 296)
         Button2.Name = "Button2"
         Button2.Size = New Size(105, 42)
         Button2.TabIndex = 9
@@ -120,6 +122,7 @@ Partial Class IncomeCategory
         ' 
         ' GroupBox1
         ' 
+        GroupBox1.Controls.Add(Button3)
         GroupBox1.Controls.Add(Button2)
         GroupBox1.Controls.Add(Button1)
         GroupBox1.Font = New Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
@@ -130,6 +133,17 @@ Partial Class IncomeCategory
         GroupBox1.TabIndex = 10
         GroupBox1.TabStop = False
         GroupBox1.Text = "INCOME SOURCE CATEGORY"
+        ' 
+        ' Button3
+        ' 
+        Button3.Font = New Font("Segoe UI", 13.2000008F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
+        Button3.ForeColor = SystemColors.ActiveCaptionText
+        Button3.Location = New Point(41, 296)
+        Button3.Name = "Button3"
+        Button3.Size = New Size(115, 42)
+        Button3.TabIndex = 10
+        Button3.Text = "&NEW"
+        Button3.UseVisualStyleBackColor = True
         ' 
         ' GroupBox2
         ' 
@@ -192,4 +206,5 @@ Partial Class IncomeCategory
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents Label1 As Label
+    Friend WithEvents Button3 As Button
 End Class
