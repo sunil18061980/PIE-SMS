@@ -168,7 +168,7 @@ Public Class ProjectUtilities
 
     'Get SourceName by SourceCode
     Public Shared Function GetSourceNameBySourceCode(sourceCode As Integer) As String
-        Dim sourceName As String = " "
+        Dim sourceName As String = "Not Found"
         Try
             Using conn As SQLiteConnection = DBConnection.GetConnection()
                 conn.Open()
@@ -176,7 +176,7 @@ Public Class ProjectUtilities
                     cmd.Parameters.AddWithValue("@INCNAME", sourceCode)
                     Dim result = cmd.ExecuteScalar()
                     If result IsNot Nothing Then
-                        sourceName = result
+                        sourceName = result.ToString()
                     End If
                 End Using
             End Using
@@ -185,6 +185,29 @@ Public Class ProjectUtilities
         End Try
 
         Return sourceName
+    End Function
+
+    Public Shared Function GetPaymentInterval(schedule As String) As Integer
+        Select Case schedule.ToUpper()
+            Case "MONTHLY"
+                Return 30
+            Case "QUARTERLY"
+                Return 91
+            Case "HALF YEARLY"
+                Return 183
+            Case "YEARLY"
+                Return 365
+            Case "DAILY"
+                Return 1
+            Case "WEEKLY"
+                Return 7
+            Case "ONE TIME"
+                Return 365
+            Case "HALF MONTHLY"
+                Return 15
+            Case Else
+                Return 0 ' Default or unknown schedule
+        End Select
     End Function
 
     'Get all sourceName (Inc_s_name) from the table Income_source

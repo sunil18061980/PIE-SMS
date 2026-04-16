@@ -1,10 +1,16 @@
 ﻿Public Class StartMain
     Private Sub CREATEUSERToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CREATEUSERToolStripMenuItem.Click
-        Dim l As New Login
-        l.ShowDialog()
-        If Not ActiveUserID Then
+        Try
+            Dim l As New Login
+            l.ShowDialog()
+            If Not ActiveUserID Then
+                Me.Close()
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error while creating user. " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
             Me.Close()
-        End If
+        End Try
     End Sub
 
     Private Sub CLOSEToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CLOSEToolStripMenuItem.Click
@@ -89,5 +95,15 @@
     Private Sub CHECKPENDINGToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CHECKPENDINGToolStripMenuItem.Click
         Dim CPI As New CheckPendingIncome()
         CPI.ShowDialog()
+    End Sub
+
+    Private Sub FORCASTINGToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FORCASTINGToolStripMenuItem.Click
+        Dim INF As New IncomeForecasting()
+        INF.ShowDialog()
+    End Sub
+
+    Private Sub DISPLAYINCOMEToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DISPLAYINCOMEToolStripMenuItem.Click
+        Dim DLI As New ShowListedIncomeSource()
+        DLI.ShowDialog()
     End Sub
 End Class

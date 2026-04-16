@@ -253,12 +253,6 @@ Public Class ManageBankAccounts
                 Label15.Visible = False
             End If
 
-
-
-
-
-
-
         End If
 
     End Sub
